@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testUDP", "testUDP\testUDP.vcxproj", "{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Debug|x64.ActiveCfg = Debug|x64
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Debug|x64.Build.0 = Debug|x64
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Debug|x86.ActiveCfg = Debug|Win32
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Debug|x86.Build.0 = Debug|Win32
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Release|x64.ActiveCfg = Release|x64
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Release|x64.Build.0 = Release|x64
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Release|x86.ActiveCfg = Release|Win32
+		{1E7636E8-9395-44E2-9FD6-52D18FB97BE7}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C41384E-C5BC-4076-9121-C763CA339EB1}
+	EndGlobalSection
+EndGlobal
