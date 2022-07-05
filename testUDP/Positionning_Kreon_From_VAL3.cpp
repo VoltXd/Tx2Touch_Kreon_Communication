@@ -12,9 +12,9 @@ namespace PA_Positionning
 		float x = pose[0];
 		float y = pose[1];
 		float z = pose[2];
-		float rx = pose[3];
-		float ry = pose[4];
-		float rz = pose[5];
+		float rx = pose[3] * EIGEN_PI / 180.0;
+		float ry = pose[4] * EIGEN_PI / 180.0;
+		float rz = pose[5] * EIGEN_PI / 180.0;
 
 		// Calculation of rotations matrixes (R = Rx * Ry' * Rz")
 		Eigen::Matrix3f rotationXMatrix;
@@ -35,7 +35,7 @@ namespace PA_Positionning
 		
 		// Calculation of head to base homogeneous matrix
 		Eigen::Matrix4f tx2RefToBaseRefMatrix;
-		tx2RefToBaseRefMatrix <<	rotationMatrix(0, 0),	rotationMatrix(0, 1),	rotationMatrix(0, 0),	x,
+		tx2RefToBaseRefMatrix <<	rotationMatrix(0, 0),	rotationMatrix(0, 1),	rotationMatrix(0, 2),	x,
 									rotationMatrix(1, 0),	rotationMatrix(1, 1),	rotationMatrix(1, 2),	y,
 									rotationMatrix(2, 0),	rotationMatrix(2, 1),	rotationMatrix(2, 2),	z,
 									0,						0,						0,						1;
