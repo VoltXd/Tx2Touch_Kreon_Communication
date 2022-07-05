@@ -2,6 +2,6 @@
 
 namespace PA_Protocol
 {
-	bool DecodeMessage(char c);
+	bool DecodeMessage(unsigned char c);
 	void RetrievePose(float* pose);
 }

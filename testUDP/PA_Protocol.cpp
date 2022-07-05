@@ -12,12 +12,11 @@ namespace PA_Protocol
 
 	const unsigned char dataSize = 24;
 	float rcvPose[6] = { 0 };
-	char rcvData[dataSize] = { 0 };
-	unsigned char rcvPoseIndex = 0;
+	unsigned char rcvData[dataSize] = { 0 };
 	unsigned char rcvDataIndex = 0;
 	ReceptionStates rcvState = SOF1;
 
-	bool DecodeMessage(char c)
+	bool DecodeMessage(unsigned char c)
 	{
 		bool areDataDecoded = false;
 		switch (rcvState)
@@ -28,10 +27,9 @@ namespace PA_Protocol
 			break;
 
 		case PA_Protocol::SOF2:
-			if (c == 0xEF)
+			if (c == 0x7F)
 			{
 				rcvState = Data;
-				rcvPoseIndex = 0;
 				rcvDataIndex = 0;
 			}
 			else

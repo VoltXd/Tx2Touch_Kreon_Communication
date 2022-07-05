@@ -130,8 +130,9 @@ namespace PA_Communication
 		if (totalBytesReceived <= 0)
 			SocketError(UdpSocketError::ReceiveError);
 		else
-			strcpy_s(msg, 1500, msgCpy);
-
+			for (int i = 0; i < totalBytesReceived; i++)
+				msg[i] = msgCpy[i];
+			
 		return totalBytesReceived;
 	}
 	

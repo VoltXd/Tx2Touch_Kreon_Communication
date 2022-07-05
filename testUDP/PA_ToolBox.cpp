@@ -2,17 +2,20 @@
 
 namespace PA_ToolBox
 {
-	float ConvertBytesToFloat(const char *bytes, unsigned int startIndex)
+	float ConvertBytesToFloat(unsigned char *bytes, unsigned int startIndex)
 	{
-		float *fPtr;
-		fPtr = (float *)(bytes + startIndex);
-		return *fPtr;
+		char bytesReversed[4];
+		for (int i = 0; i < 4; i++)
+			bytesReversed[i] = bytes[startIndex + 3 - i];
+		float *fPtr = (float*)(bytesReversed);
+		float f = *fPtr;
+		return f;
 	}
 
-	void ConvertFloatToBytes(float f, char* bytes, unsigned int startIndex)
+	void ConvertFloatToBytes(float f, unsigned char* bytes, unsigned int startIndex)
 	{
 		float *fPtr = &f;
-		char *cPtr = (char *)fPtr;
+		unsigned char *cPtr = (unsigned char *)fPtr;
 		for (int i = 0; i < 4; i++)
 			bytes[startIndex + i] = cPtr[i];
 
