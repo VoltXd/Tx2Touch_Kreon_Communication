@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PA_Protocol.cpp" />
     <ClCompile Include="Positionning_Kreon_From_VAL3.cpp" />
     <ClCompile Include="PA_CB.cpp" />
     <ClCompile Include="PA_ToolBox.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="testUDP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PA_Protocol.hpp" />
     <ClInclude Include="Positionning_Kreon_From_VAL3.hpp" />
     <ClInclude Include="PA_CB.hpp" />
     <ClInclude Include="Errors.hpp" />

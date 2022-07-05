@@ -1,4 +1,5 @@
 #include "PA_CB.hpp"
+#include "PA_Protocol.hpp"
 #include "PA_Sockets.hpp"
 #include "PA_ToolBox.hpp"
 #include "Errors.hpp"
@@ -49,6 +50,8 @@ int main()
 	std::thread rcvThread(rcvMessage, scktMngr, std::ref(cbRx));
 	std::thread readCBThread(readBuffer, std::ref(cbRx));
 	std::cout << "Entrez le texte a envoyer (vide pour quitter)> " << std::endl;
+	std::cout << "'a' : Début Acq, 'e' : Fin Acq, 'p' : Demande Position" << std::endl;
+	
 	sendThread.join();
 	rcvThread.join(); // A tester sans cette ligne, on a peut-être pas besoin d'attendre de recevoir pour passer à la suite
 	readCBThread.join();
@@ -68,10 +71,30 @@ void sendMessage(PA_Communication::UdpSocketManager scktMngr)
 		if (data.empty())
 		{
 			programEnded = true;
-			scktMngr.Send("\r\n");
+			scktMngr.Send("\n");
 			break;
 		}
-		data.append("\r\n");
+
+		switch (data[0])
+		{
+		case 'a':
+			data[0] = 0xFE;
+			break;
+
+		case 'e':
+			data[0] = 0xEF;
+			break;
+
+		case 'p':
+			data[0] = 0x01;
+			break;
+
+		default:
+			data[0] = 0xAA;
+			break;
+		}
+
+		data.append("\n");
 
 		int ret = scktMngr.Send(data.data());
 		if (ret <= 0)
@@ -102,36 +125,24 @@ void rcvMessage(PA_Communication::UdpSocketManager scktMngr, PA_Communication::C
 }
 
 float pose[6];
-unsigned char poseIndex = 0;
-char poseString[16];
-unsigned char poseStringIndex = 0;
 void readBuffer(PA_Communication::CircularBuffer &cbRx)
 {
 	while (!programEnded)
 	{
 		if (cbRx.IsDataAvailable())
 		{
-			// Décodage et calcul de la position Kreon (méthode peu fiable)
-			poseString[poseStringIndex] = cbRx.Get();
-			std::cout << poseString[poseStringIndex++];
-			// If end of message
-			if (poseString[poseStringIndex - 1] == '\n')
+			if (PA_Protocol::DecodeMessage(cbRx.Get()))
 			{
-				// string to float & index++
-				poseString[poseStringIndex - 1] = '\0';
-				pose[poseIndex++] = atof(poseString);
+				PA_Protocol::RetrievePose(pose);
+				for (int i = 0; i < 6; i++)
+					std::cout << pose[i] << std::endl;
 
-				poseStringIndex = 0;
-				// If pose retrieved, calculate kreonPose
-				if (poseIndex == 6)
-				{
-					PA_Positionning::TX2ToKreonTransform(pose);
-					std::cout << std::endl << "Kreon Pose : " << std::endl;
-					for (int i = 0; i < 6; i++)
-						std::cout << pose[i] << std::endl;
-					poseIndex = 0;
-					std::cout << std::endl << std::endl;
-				}
+				PA_Positionning::TX2ToKreonTransform(pose);
+
+				std::cout << std::endl << "Kreon Pose : " << std::endl;
+				for (int i = 0; i < 6; i++)
+					std::cout << pose[i] << std::endl;
+				std::cout << std::endl << std::endl;
 			}
 		}
 	}
