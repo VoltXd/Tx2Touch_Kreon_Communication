@@ -30,12 +30,6 @@ int main()
 	// Initialize circular buffer
 	PA_Communication::CircularBuffer cbRx(1024);
 
-	float a = 51351.561161156156;
-	unsigned char aB[4];
-	PA_ToolBox::ConvertFloatToBytes(a, aB, 0);
-	std::cout << PA_ToolBox::ConvertBytesToFloat(aB, 0) << std::endl;
-	for (int i = 0; i < 4; i++)
-		std::cout << (unsigned int)aB[i] << std::endl;
 
 
 	//char adress[128];
