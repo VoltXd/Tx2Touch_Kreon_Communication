@@ -3,5 +3,5 @@
 
 namespace PA_Positionning
 {
-	void TX2ToKreonTransform(float* pose);
+	void tx2ToKreonTransform(float* pose);
 }

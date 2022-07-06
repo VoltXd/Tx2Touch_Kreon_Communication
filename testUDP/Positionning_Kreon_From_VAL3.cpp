@@ -3,7 +3,7 @@
 
 namespace PA_Positionning
 {
-	void TX2ToKreonTransform(float* pose)
+	void tx2ToKreonTransform(float* pose)
 	{
 		// Kreon homogeneous position in TX2 head referential.
 		Eigen::Vector4f kreonHomogeneousPositionRefTx2(70.0, 0, 150.0, 1);

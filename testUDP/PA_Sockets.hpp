@@ -56,6 +56,7 @@ namespace PA_Communication
 		~UdpSocketManager();
 
 		void Initialize();
+		void Close();
 		bool IsInitialized();
 		int Send(const char *msg);
 		int Receive(char *msg, sockaddr_in& from);

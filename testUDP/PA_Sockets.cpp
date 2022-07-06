@@ -62,8 +62,7 @@ namespace PA_Communication
 
 	UdpSocketManager::~UdpSocketManager()
 	{
-		PA_Communication::CloseSocket(mUdpSocket);
-		PA_Communication::Release();
+		Close();
 	}
 
 	void UdpSocketManager::Initialize()
@@ -103,6 +102,12 @@ namespace PA_Communication
 		inet_pton(AF_INET, mRemoteIpAddress.data(), &mRemoteAddr.sin_addr.s_addr);
 		mRemoteAddr.sin_family = AF_INET;
 		mRemoteAddr.sin_port = htons(mRemotePort);
+	}
+
+	void UdpSocketManager::Close()
+	{
+		PA_Communication::CloseSocket(mUdpSocket);
+		PA_Communication::Release();
 	}
 
 	bool UdpSocketManager::IsInitialized()

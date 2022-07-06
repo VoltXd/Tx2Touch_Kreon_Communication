@@ -16,7 +16,7 @@ namespace PA_Protocol
 	unsigned char rcvDataIndex = 0;
 	ReceptionStates rcvState = SOF1;
 
-	bool DecodeMessage(unsigned char c)
+	bool decodeMessage(unsigned char c)
 	{
 		bool areDataDecoded = false;
 		switch (rcvState)
@@ -41,7 +41,7 @@ namespace PA_Protocol
 			if (rcvDataIndex == dataSize)
 			{
 				for (int i = 0; i < 6; i++)
-					rcvPose[i] = PA_ToolBox::ConvertBytesToFloat(rcvData, i * 4);
+					rcvPose[i] = PA_ToolBox::convertBytesToFloat(rcvData, i * 4);
 				areDataDecoded = true;
 				rcvState = SOF1;
 			}
@@ -55,7 +55,7 @@ namespace PA_Protocol
 		return areDataDecoded;
 	}
 
-	void RetrievePose(float* pose)
+	void retrievePose(float* pose)
 	{
 		for (int i = 0; i < 6; i++)
 			pose[i] = rcvPose[i];
