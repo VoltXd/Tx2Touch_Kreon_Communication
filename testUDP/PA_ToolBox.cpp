@@ -1,6 +1,7 @@
 #include "PA_ToolBox.hpp"
 
 #include <cmath>
+#include <chrono>
 
 namespace PA_ToolBox
 {
@@ -23,7 +24,7 @@ namespace PA_ToolBox
 
 	}
 
-	float meanf(const float* datas, unsigned int size)
+	float getMean(const float* datas, unsigned int size)
 	{
 		float mean = 0;
 
@@ -34,9 +35,9 @@ namespace PA_ToolBox
 		return mean;
 	}
 
-	float standartDeviationf(const float* datas, unsigned int size)
+	float getStandartDeviation(const float* datas, unsigned int size)
 	{
-		float mean = meanf(datas, size);
+		float mean = getMean(datas, size);
 		float stDev = 0;
 		
 		for (int i = 0; i < size; i++)
@@ -44,5 +45,24 @@ namespace PA_ToolBox
 		stDev = sqrt(stDev / size - mean * mean);
 
 		return stDev;
+	}
+
+	std::chrono::high_resolution_clock::time_point start;
+	void tic()
+	{
+		start = std::chrono::high_resolution_clock::now();
+	}
+
+	std::chrono::high_resolution_clock::time_point stop;
+	void toc()
+	{
+		stop = std::chrono::high_resolution_clock::now();
+	}
+
+	float getTicTocDuration()
+	{
+		float duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() * 0.000000001;
+		
+		return duration;
 	}
 }
