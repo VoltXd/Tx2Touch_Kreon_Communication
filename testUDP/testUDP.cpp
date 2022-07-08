@@ -24,10 +24,8 @@ PA_Communication::UdpSocketManager scktMngr(1980, "192.168.0.254", 1980);
 
 int main()
 {
-	// Instantiate socket manager
-	initSocket();
-	
 	// Initialize socket manager
+	initSocket();
 
 	// Initialize circular buffer
 	PA_Communication::CircularBuffer cbRx(1024);
@@ -51,7 +49,7 @@ int main()
 	std::thread rcvThread(rcvMessage, std::ref(cbRx));
 	std::thread readCBThread(readBuffer, std::ref(cbRx));
 	std::cout << "Entrez le texte a envoyer (vide pour quitter)> " << std::endl;
-	std::cout << "'a' : Début Acq, 'e' : Fin Acq, 'p' : Demande Position" << std::endl;
+	std::cout << "\n'a' : Debut Acq\n'e' : Fin Acq\n'p' : Demande Position\n's' : Statistique temps execution\n" << std::endl;
 	
 	sendThread.join();
 	rcvThread.join(); // A tester sans cette ligne, on a peut-être pas besoin d'attendre de recevoir pour passer à la suite
