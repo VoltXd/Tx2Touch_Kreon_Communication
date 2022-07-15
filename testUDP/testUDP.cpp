@@ -153,18 +153,18 @@ void readBuffer(PA_Communication::CircularBuffer &cbRx)
 		{
 			if (PA_Protocol::decodeMessage(cbRx.Get()))
 			{
-				PA_ToolBox::toc();
-				taskFinished = true;
 				PA_Protocol::retrievePose(pose);
-				//for (int i = 0; i < 6; i++)
-				//	std::cout << pose[i] << std::endl;
+				for (int i = 0; i < 6; i++)
+					std::cout << pose[i] << std::endl;
 
 				PA_Positionning::tx2ToKreonTransform(pose);
+				PA_ToolBox::toc();
+				taskFinished = true;
 
-				//std::cout << std::endl << "Kreon Pose : " << std::endl;
-				//for (int i = 0; i < 6; i++)
-				//	std::cout << pose[i] << std::endl;
-				//std::cout << std::endl << std::endl;
+				std::cout << std::endl << "Kreon Pose : " << std::endl;
+				for (int i = 0; i < 6; i++)
+					std::cout << pose[i] << std::endl;
+				std::cout << std::endl << std::endl;
 			}
 		}
 	}
